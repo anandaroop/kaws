@@ -3,6 +3,9 @@ import { Column, Entity, Index, ObjectID, ObjectIdColumn } from "typeorm"
 import { CollectionGroup } from "./CollectionGroup"
 import { CollectionQuery } from "./CollectionQuery"
 
+const TurndownService = require("turndown")
+const turndownService = new TurndownService()
+
 @ObjectType({ description: "Object representing a collection page" })
 @Entity()
 export class Collection {
@@ -134,4 +137,12 @@ export class Collection {
   })
   @Column({ nullable: true })
   featuredArtistExclusionIds?: string[] = []
+
+  @Field(type => String, {
+    nullable: true,
+    description: "Markdown-flavored version of the description field",
+  })
+  descriptionMarkdown(): string | undefined {
+    return turndownService.turndown(this.description)
+  }
 }

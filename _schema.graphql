@@ -56,6 +56,9 @@ type Collection {
 
   # IDs of artists that should be excluded from Featured Artists for this collection
   featuredArtistExclusionIds: [String!]
+
+  # Markdown-flavored version of the description field
+  descriptionMarkdown: String
   relatedCollections: [Collection!]!
 }
 
